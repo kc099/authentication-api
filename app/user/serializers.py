@@ -7,6 +7,7 @@ from django.contrib.auth import (
 )
 from django.utils.translation import gettext as _
 from rest_framework import serializers
+from rest_framework.authtoken.models import Token
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -56,3 +57,26 @@ class AuthTokenSerializer(serializers.Serializer):
 
         attrs['user'] = user
         return attrs
+
+
+class LogoutSerializer(serializers.Serializer):
+    """Verify token exists"""
+    token = serializers.CharField(max_length=256)
+
+    def validate(self, attrs):
+        """validate token and get user"""
+        token = attrs.get('token')
+        try:
+            user = Token.objects.get(key=str(token)).user
+        except:
+            user = None
+            msg = _('Unable to find user with token')
+            raise serializers.ValidationError(msg, code='authorization')
+
+        attrs['user'] = user
+        return attrs
+
+
+class DeviceSerializer(serializers.ModelSerializer):
+    """Serializer for device object"""
+    pass
