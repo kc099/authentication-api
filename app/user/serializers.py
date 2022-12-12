@@ -6,8 +6,11 @@ from django.contrib.auth import (
     authenticate,
 )
 from django.utils.translation import gettext as _
+
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
+
+
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -77,6 +80,5 @@ class LogoutSerializer(serializers.Serializer):
         return attrs
 
 
-class DeviceSerializer(serializers.ModelSerializer):
-    """Serializer for device object"""
-    pass
+
+

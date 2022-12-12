@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'user',
     'mqtt',
+    'device',
 ]
 
 MIDDLEWARE = [

@@ -3,23 +3,12 @@ Database models
 """
 
 from django.db import models
+from django.conf import settings
 from django.contrib.auth.models import (
     AbstractBaseUser,
     BaseUserManager,
     PermissionsMixin,
 )
-
-
-class DeviceManager():
-    pass
-
-class Device(models.Model):
-    """Device model for user"""
-    device_name = models.CharField(max_length=255, blank=True, null=True)
-    device_type = models.CharField(max_length=100, blank=True, null=True)
-    device_owner = models.EmailField(max_length=255, blank=True, null=True)
-    created = models.DateTimeField(auto_now_add=True)
-    device_active = models.BooleanField(default=True)
 
 
 class UserManager(BaseUserManager):
@@ -56,10 +45,20 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
-    devices = models.ManyToManyField(Device)
 
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['name']
 
 
+class Device(models.Model):
+    """Device model for user"""
+    device_uuid = models.UUIDField(editable=True, unique=True)
+    device_name = models.CharField(max_length=255, blank=True, null=True)
+    device_type = models.CharField(max_length=100, blank=True, null=True)
+    created = models.DateTimeField(auto_now_add=True)
+    is_active = models.BooleanField(default=True)
+    users = models.ManyToManyField(settings.AUTH_USER_MODEL)
+
+    REQUIRED_FIELDS = ['device_uuid', 'device_name', 'device_type']
