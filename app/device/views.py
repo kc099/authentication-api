@@ -20,7 +20,7 @@ class DeviceViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         """Retrieve devices of authenticated user"""
-        return self.queryset.users.filter(
-            email=self.request.user.email
+        return self.query_set.filter(
+            users__email=self.request.user.email
         ).order_by('-id').distinct()
 
