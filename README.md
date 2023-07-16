@@ -1,22 +1,28 @@
 # authentication-api
 ## Prerequisites
-### Step1: Install Docker Desktop
+### Install git 
+```
+https://git-scm.com/download/win
+```
+Open 'Git bash' from windows menu and clone this repository<br />
+```
+git clone https://github.com/kc099/authentication-api.git
+```
+### Install Docker Desktop
 ```
 https://www.docker.com/products/docker-desktop/
 ```
-### Step2: Install Anaconda
-```
-https://docs.anaconda.com/free/anaconda/install/windows/
-```
-## Step3: Build DockerFile
+create a new account in docker desktop<br />
+
+## Build DockerFile
 ```
 docker build .
 ```
-## Step4: Build Docker compose file
+## Build Docker compose file
 ```
 docker-compose build 
 ```
-## Step4: Start App server
+## Start App server
 ```
 docker-compose up 
 ```
